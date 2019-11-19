@@ -9,7 +9,7 @@ node () {
 	}
 	stage ('App-IC - Build') {
  			// Maven build step
-	withMaven(maven: 'maven apache 5.3.4') { 
+	withMaven(maven: 'maven') { 
  			if(isUnix()) {
  				sh "mvn clean package " 
 			} else { 
@@ -23,6 +23,14 @@ node () {
  				sh "mvn sonar:sonar" 
 			} else { 
  				bat "mvn sonar:sonar" 
+			} 
+ 		} 
+	}
+	withMaven(maven: 'maven') { 
+ 			if(isUnix()) {
+ 				sh "mvn deploy" 
+			} else { 
+ 				bat "mvn deploy" 
 			} 
  		} 
 	}
